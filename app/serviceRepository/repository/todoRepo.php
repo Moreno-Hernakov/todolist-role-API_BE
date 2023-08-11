@@ -7,11 +7,11 @@ use App\Models\User;
 Class todoRepo {
     
     public function getById($id){
-        return todo::find($id);
+      return todo::find($id);
     }
 
     public function showTodoUserAuth(){
-      return todo::where('user_id', auth()->user()->id)->get();
+      return todo::where('user_id', auth()->user()->id)->latest()->paginate(5);
     }
 
     public function showAllTodo(){

@@ -21,7 +21,8 @@ class TodoController extends Controller
 
         $data = [
             "todo" => $request->post('todo'),
-            "user_id" => auth()->user()->id
+            "user_id" => auth()->user()->id,
+            "isChecklist" => false
         ];
         
         $this->todoService->addTodo($data);
@@ -70,6 +71,19 @@ class TodoController extends Controller
     public function findById($id){
         $todo = $this->todoService->getById($id);
         return response()->json($todo);
+    }
+
+    public function checklist( Request $request ){
+        $data = [
+            'isChecklist' => $request->isChecklist
+        ];
+
+        $this->todoService->updateTodo($data, $request->id);
+        
+        return response()->json([
+            "message" => "todo isChecklist berhasil diperbarui",
+            "success" => true,
+        ], 200);
     }
 
 

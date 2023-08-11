@@ -36,6 +36,7 @@ Route::prefix('auth')->group(function () {
         Route::get('/show', [TodoController::class, 'show']);
         Route::get('/find/{id}', [TodoController::class, 'findById']);
         Route::delete('/delete/{id}', [TodoController::class, 'delete']);
+        Route::put('/checklist', [TodoController::class, 'checklist']);
          // admin
         Route::middleware('isAdmin')->group(function () {
             Route::get('/showall', [TodoController::class, 'showAll']);

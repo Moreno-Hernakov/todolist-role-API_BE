@@ -32,12 +32,16 @@ class authController extends Controller
     }
 
     public function login(Request $request){
+        $request->validate([
+			'email'=>'required|email',
+			'password'=>'required|min:6',
+		]);
         $credentials = request(['email', 'password']);
         // dd($credentials);
         $token = $this->authService->attempt($credentials);
         // $token = auth()->attempt($credentials);
         if(!$token){
-            return response()->json(['error' => 'unauthorized'], 401);
+            return response()->json(['error' => 'password do not match'], 401);
         }
 
         return response()->json([
